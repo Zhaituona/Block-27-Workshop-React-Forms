@@ -1,25 +1,19 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 
-function SignUpForm({ setToken }) {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+const SignUpForm = ({ setToken }) => {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    setError(null);
-
     try {
       const response = await fetch('https://fsa-jwt-practice.herokuapp.com/signup', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ username, password }),
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ username, password })
       });
-
       const result = await response.json();
-
       if (result.success) {
         setToken(result.token);
       } else {
@@ -41,7 +35,6 @@ function SignUpForm({ setToken }) {
             type="text"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
-            required
           />
         </label>
         <br />
@@ -51,7 +44,6 @@ function SignUpForm({ setToken }) {
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            required
           />
         </label>
         <br />
@@ -59,6 +51,6 @@ function SignUpForm({ setToken }) {
       </form>
     </div>
   );
-}
+};
 
 export default SignUpForm;
